@@ -79,6 +79,7 @@ namespace ResortProjectAPI.Services
             staff.Email = model.Email;
             staff.Phone = model.Phone;
             staff.Password = model.Password;
+            staff.PermissionID = model.PermissionID;
             return await _context.SaveChangesAsync();
         }
     }

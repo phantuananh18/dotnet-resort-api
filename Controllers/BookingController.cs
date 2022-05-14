@@ -61,7 +61,7 @@ namespace ResortProjectAPI.Controllers
                 if (!(voucher.FromDate.Date <= model.CheckinDate.Date && model.CheckinDate.Date <= voucher.ToDate.Date) ||
                 !(voucher.FromDate.Date <= model.CheckoutDate.Date && model.CheckoutDate.Date <= voucher.ToDate.Date))
                     return BadRequest($"Voucher {model.VoucherCode} can apply for bill booking from {voucher.FromDate.ToString("dd/MM/yyyy")} to {voucher.ToDate.ToString("dd/MM/yyyy")}");
-                var tmp = await GetPrice(model);
+                double tmp = room.Price * (int)model.CheckoutDate.Date.Subtract(model.CheckinDate.Date).Days;
                 if (tmp < voucher.Condition)
                     return BadRequest($"Voucher {model.VoucherCode} can apply for bill with min value is {voucher.Condition}");
             }
@@ -196,7 +196,14 @@ namespace ResortProjectAPI.Controllers
             double price = room.Price * booking.CheckoutDate.Date.Subtract(booking.CheckinDate.Date).Days;
 
             var temp = await _service.GetByID(booking.ID);
-            var services = await _serviceService.GetAll(); //bug here
+            /*var services;
+            if(await _service.GetByID(booking.ID) != null)
+            {
+                var services = await _serviceService.GetAll();
+            } else
+            {
+                
+            }//*/
             //List<Service> serviceList = services.Where(item => item.)
             if (booking.Services.Count() > 0)
             {
