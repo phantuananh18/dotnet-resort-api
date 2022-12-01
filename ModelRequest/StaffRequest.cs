@@ -10,7 +10,7 @@ namespace ResortProjectAPI.ModelRequest
     {
         [Required(ErrorMessage = "ID is required")]
         [MaxLength(20,ErrorMessage = "ID is too long")]
-        [MinLength(6, ErrorMessage = "ID is too short")]
+        [MinLength(5, ErrorMessage = "ID is too short")]
         public string ID { get; set; }
 
         [MaxLength(50, ErrorMessage = "Name is too long")]
